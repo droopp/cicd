@@ -1,0 +1,10 @@
+FROM ubuntu:20.04
+MAINTAINER makarov version: 0.1
+
+RUN apt update
+RUN apt install -y git
+RUN apt install -y ruby-dev build-essential
+RUN apt install -y python-dev python3-pip
+RUN apt install -y libssl-dev
+RUN echo "gem: --no-document --no-rdoc --no-ri" > ~/.gemrc
+RUN gem install fpm

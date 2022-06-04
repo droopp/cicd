@@ -1,0 +1,11 @@
+FROM centos:7
+MAINTAINER makarov version: 0.1
+
+RUN yum install -y epel-release
+RUN yum install -y centos-release-scl
+RUN yum install -y rh-ruby27 rh-ruby27-ruby-devel gcc make rpm-build rubygems
+RUN yum install -y git
+RUN yum install -y python-devel python-pip
+RUN yum install -y openssl-devel
+RUN echo "gem: --no-document --no-rdoc --no-ri" > ~/.gemrc
+RUN scl enable rh-ruby27 'gem install fpm'
