@@ -9,7 +9,7 @@ fi
 mv ~/$dest/*.deb ~/$dest/pool/main/
 
 cd ~/$dest
-dpkg-scanpackages --arch amd64 pool/ > dists/drop/main/binary-amd64/Packages
+dpkg-scanpackages --multiversion --arch amd64 pool/ > dists/drop/main/binary-amd64/Packages
 cd -
 
 sed -i 's/Maintainer.*/Maintainer: <makarov>/' ~/$dest/dists/drop/main/binary-amd64/Packages
