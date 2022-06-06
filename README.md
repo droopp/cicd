@@ -71,8 +71,7 @@ CI/CD scripts and files
 
 ## Create workers 
 
+	create-worker centos7 localhost centos7 pass
 
-	./venv/bin/buildbot-worker create-worker centos7 master localhost pass
-
-	./venv/bin/buildbot-worker create-worker ubuntu20 master localhost pass
+	create-worker ubuntu20 localhost ubuntu20 pass
 
