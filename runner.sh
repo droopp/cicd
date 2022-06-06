@@ -17,7 +17,7 @@ echo "target url "+$REPO_URL
 echo "repo "+$1+$2
 echo "branch "+$3
 
-BUILD_DIR=$2"_"$3
+BUILD_DIR=$2"_"$3"_"$5
 
 # create branch dir
 
