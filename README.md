@@ -5,7 +5,8 @@ CI/CD scripts and files
 ## Structure
 
 	├── README.md
-	├── RPMS             # RPM packages
+	├── rpm              # RPM packages
+ 	├── deb              # DEB packages
 	├── build.sh         # Entry point for build
 	├── goldimages       # Docker files for golden images
 	│   └── centos7 
@@ -18,3 +19,25 @@ CI/CD scripts and files
 ## Run build
 
 	./build.sh centos7 droopp test1 master 0.1.0 rpm
+
+
+# Private repositories (DEB + RPM)
+
+## DEB
+
+### Create struct in deb dir
+
+	deb/create_repo.sh
+
+###  Update repo
+
+	deb/update_repo.sh
+
+###  Add private repo to target host
+
+	echo "deb [arch=amd64] http://134.122.23.140/deb/ drop main" | sudo tee /etc/apt/sources.list.d/drop.list
+
+	sudo apt-get update --allow-insecure-repositories
+
+	sudo apt-get -t drop install <Package>
+
