@@ -41,3 +41,18 @@ CI/CD scripts and files
 
 	sudo apt-get -t drop install <Package>
 
+
+## RPM
+
+###  Add private repo to target host
+
+	echo '[drop-master]
+	name=drop
+	baseurl=http://134.122.23.140/deb/
+	gpgcheck=0
+	enabled=1
+	metadata_expire=1m
+	http_caching=packages
+	mirrorlist_expire=1m
+	' > /etc/yum.repos.d/drop.repo
+
