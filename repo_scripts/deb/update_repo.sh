@@ -1,13 +1,21 @@
 #!/bin/bash
 
-mv ~/deb/*.deb ~/deb/pool/
+if [ "$1" == "master" ]; then
+   dest=deb-master
+else
+   dest=deb-develop
+fi
 
-dpkg-scanpackages --arch amd64 ~/deb/pool/ > ~/deb/dists/drop/main/binary-amd64/Packages
+mv ~/$dest/*.deb ~/$dest/pool/main/
 
-sed -i 's/Maintainer.*/Maintainer: <makarov>/' ~/deb/dists/drop/main/binary-amd64/Packages
-sed -i 's/Homepage.*/Homepage: https:\/\/dropfaas.com/' ~/deb/dists/drop/main/binary-amd64/Packages
-sed -i 's/Description.*/Description: Distributed Reliable Operations Platform/' ~/deb/dists/drop/main/binary-amd64/Packages
+cd ~/$dest
+dpkg-scanpackages --arch amd64 pool/ > dists/drop/main/binary-amd64/Packages
+cd -
 
-cat ~/deb/dists/drop/main/binary-amd64/Packages | gzip -9 > ~/deb/dists/drop/main/binary-amd64/Packages.gz
-./generate-release.sh > ~/deb/dists/drop/Release
+sed -i 's/Maintainer.*/Maintainer: <makarov>/' ~/$dest/dists/drop/main/binary-amd64/Packages
+sed -i 's/Homepage.*/Homepage: https:\/\/dropfaas.com/' ~/$dest/dists/drop/main/binary-amd64/Packages
+sed -i 's/Description.*/Description: Distributed Reliable Operations Platform/' ~/$dest/dists/drop/main/binary-amd64/Packages
+
+cat ~/$dest/dists/drop/main/binary-amd64/Packages | gzip -9 > ~/$dest/dists/drop/main/binary-amd64/Packages.gz
+./generate-release.sh $dest > ~/$dest/dists/drop/Release
 

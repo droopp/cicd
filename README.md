@@ -5,8 +5,6 @@ CI/CD scripts and files
 ## Structure
 
 	├── README.md
-	├── rpm              # RPM packages
- 	├── deb              # DEB packages
 	├── build.sh         # Entry point for build
 	├── goldimages       # Docker files for golden images
 	│   └── centos7 
@@ -20,22 +18,30 @@ CI/CD scripts and files
 
 	./build.sh centos7 droopp test1 master 0.1.0 rpm
 
+	./build.sh ubuntu20 droopp test1 master 0.1.0 deb
 
 # Private repositories (DEB + RPM)
 
 ## DEB
 
+## Create dirs
+
+	mkdir deb-master 
+	mkdir deb-develop
+
+	sudo chown -R buildbot:www-data deb-master deb-develop
+
 ### Create struct in deb dir
 
-	deb/create_repo.sh
+	deb-{master, develop}/create_repo.sh
 
 ###  Update repo
 
-	deb/update_repo.sh
+	deb-{master, develop}/update_repo.sh
 
 ###  Add private repo to target host
 
-	echo "deb [arch=amd64] http://134.122.23.140/deb/ drop main" | sudo tee /etc/apt/sources.list.d/drop.list
+	echo "deb [arch=amd64] http://134.122.23.140/deb-{master,develop}/ drop main" | sudo tee /etc/apt/sources.list.d/drop.list
 
 	sudo apt-get update --allow-insecure-repositories
 
@@ -46,9 +52,9 @@ CI/CD scripts and files
 
 ###  Add private repo to target host
 
-	echo '[drop-master]
+	echo '[drop]
 	name=drop
-	baseurl=http://134.122.23.140/deb/
+	baseurl=http://134.122.23.140/rpm-{master, develop}/
 	gpgcheck=0
 	enabled=1
 	metadata_expire=1m

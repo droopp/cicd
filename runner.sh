@@ -2,6 +2,8 @@
 
 set -e
 
+echo $6
+
 # fix ruby version
 if [ "$5" == "rpm" ]; then
 	source /opt/rh/rh-ruby27/enable
@@ -32,12 +34,25 @@ git checkout $3
 
 # set version
 
-ver=$(git describe --tags $(git rev-list --tags --max-count=1))
+last_tag=$(git rev-list --tags --max-count=1)
+
 echo "Tag version "$ver
-if [ -z "$ver" ]
+if [ -z "$last_tag" ]
       then
         echo "No tag version"
-        ver=$4
+        ver="0.1.0"
+else
+     ver=$(git describe --tags $last_tag)
+fi
+
+# if dev - add 4dig commit
+
+if [ "$3" == "master" ]; then
+        echo "build master version: $ver"
+else
+	cmt=$(git rev-parse --short HEAD)
+        ver="$ver-$cmt"
+        echo "build develop version: $ver"
 fi
 
 # move to dest
@@ -69,7 +84,11 @@ fi
 
 # mv to repo
 
-mv ~/$BUILD_DIR/$2/*.$5 ~/$5/
+if [ "$3" == "master" ]; then
+        mv ~/$BUILD_DIR/$2/*.$5 ~/$5-master/
+else
+        mv ~/$BUILD_DIR/$2/*.$5 ~/$5-develop/
+fi
 
 # remove files
 
@@ -79,6 +98,6 @@ rm -rf ~/$BUILD_DIR
 # update repo
 
 cd ~/repo_scripts/$5
-./update_repo.sh
+./update_repo.sh $3
 
 echo "repo $5 updated.."

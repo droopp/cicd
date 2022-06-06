@@ -5,7 +5,7 @@ do_hash() {
     HASH_NAME=$1
     HASH_CMD=$2
     echo "${HASH_NAME}:"
-    for f in $(find ~/deb/ -type f|grep *.deb); do
+    for f in $(find ~/$3/ -type f|grep *.deb); do
         f=$(echo $f | cut -c3-) # remove ./ prefix
         if [ "$f" = "Release" ]; then
             continue
@@ -25,6 +25,6 @@ Components: main
 Description: Distributed Reliable Operations Platform
 Date: $(date -Ru)
 EOF
-do_hash "MD5Sum" "md5sum"
-do_hash "SHA1" "sha1sum"
-do_hash "SHA256" "sha256sum"
+do_hash "MD5Sum" "md5sum" $1
+do_hash "SHA1" "sha1sum" $1
+do_hash "SHA256" "sha256sum" $1
