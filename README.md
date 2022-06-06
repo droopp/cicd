@@ -62,3 +62,17 @@ CI/CD scripts and files
 	mirrorlist_expire=1m
 	' > /etc/yum.repos.d/drop.repo
 
+
+# BuildBot 
+
+## Create master 
+
+	./venv/bin/buildbot create-master master
+
+## Create workers 
+
+
+	./venv/bin/buildbot-worker create-worker centos7 master localhost pass
+
+	./venv/bin/buildbot-worker create-worker ubuntu20 master localhost pass
+
