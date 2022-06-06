@@ -3,7 +3,7 @@
 set -e
 
 # fix ruby version
-if ["$5" == "rpm"]; then
+if [ "$5" == "rpm" ]; then
 	source /opt/rh/rh-ruby27/enable
 fi
 
@@ -75,3 +75,10 @@ mv ~/$BUILD_DIR/$2/*.$5 ~/$5/
 
 cd ~
 rm -rf ~/$BUILD_DIR
+
+# update repo
+
+cd ~/repo_scripts/$5
+./update_repo.sh
+
+echo "repo $5 updated.."

@@ -5,7 +5,7 @@ do_hash() {
     HASH_NAME=$1
     HASH_CMD=$2
     echo "${HASH_NAME}:"
-    for f in $(find -type f|grep *.deb); do
+    for f in $(find ~/deb/ -type f|grep *.deb); do
         f=$(echo $f | cut -c3-) # remove ./ prefix
         if [ "$f" = "Release" ]; then
             continue
