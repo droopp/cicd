@@ -41,9 +41,9 @@ CI/CD scripts and files
 
 ###  Add private repo to target host
 
-	echo "deb [arch=amd64] http://134.122.23.140/deb-{master,develop}/ drop main" | sudo tee /etc/apt/sources.list.d/drop.list
+	echo "deb [trusted=yes] http://134.122.23.140/deb-{master,develop}/ drop main" | sudo tee /etc/apt/sources.list.d/drop.list
 
-	sudo apt-get update --allow-insecure-repositories
+	sudo apt-get update
 
 	sudo apt-get -t drop install <Package>
 
