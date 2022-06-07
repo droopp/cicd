@@ -11,16 +11,15 @@ echo "    \::/  /       \:\__\        \::/  /       \:\__\       "
 echo "     \/__/         \/__/         \/__/         \/__/       "
 echo "                                                           "
 echo "                                                           "
-echo "     Bootstrap Script                                      "
+echo "Bootstrap Script                                           "
 echo "                                                           "
-echo " curl https://dropfaas.com/boot/drop-bootstrap.sh|sh       "
 echo "                                                           "
 
 # Parameters
 
 REPOURL="http://134.122.23.140"
 BRANCH="master"
-YUM_OPTS='--disablerepo="*" --enablerepo="drop"'
+YUM_OPTS='--disablerepo="*" --enablerepo=drop'
 
 # check distrib version
 
